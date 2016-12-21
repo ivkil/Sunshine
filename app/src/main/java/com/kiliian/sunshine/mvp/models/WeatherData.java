@@ -1,11 +1,10 @@
-package com.kiliian.sunshine.models;
+package com.kiliian.sunshine.mvp.models;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
-class WeatherData {
+public class WeatherData {
 
     @SerializedName("dt")
     private long date;
@@ -84,4 +83,5 @@ class WeatherData {
     public void setWindDeg(double windDeg) {
         this.windDeg = windDeg;
     }
+
 }

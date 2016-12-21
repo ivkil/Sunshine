@@ -1,9 +1,9 @@
-package com.kiliian.sunshine.models;
+package com.kiliian.sunshine.mvp.models;
 
 import com.google.gson.annotations.SerializedName;
 
 
-class Temperature {
+public class Temperature {
 
     @SerializedName("min")
     private double min;

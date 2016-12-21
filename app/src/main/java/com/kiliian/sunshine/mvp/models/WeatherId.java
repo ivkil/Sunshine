@@ -1,9 +1,9 @@
-package com.kiliian.sunshine.models;
+package com.kiliian.sunshine.mvp.models;
 
 import com.google.gson.annotations.SerializedName;
 
 
-class WeatherId {
+public class WeatherId {
 
     @SerializedName("id")
     private int id;

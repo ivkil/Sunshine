@@ -1,6 +1,6 @@
 package com.kiliian.sunshine.network;
 
-import com.kiliian.sunshine.models.WeatherResponse;
+import com.kiliian.sunshine.mvp.models.WeatherResponse;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
