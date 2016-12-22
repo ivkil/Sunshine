@@ -2,6 +2,10 @@ package com.kiliian.sunshine.mvp.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.ZoneId;
+
 import java.util.List;
 
 public class WeatherData {
@@ -27,13 +31,12 @@ public class WeatherData {
     @SerializedName("deg")
     private double windDeg;
 
-
-    public long getDate() {
-        return date;
-    }
-
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public LocalDate getDate() {
+        return Instant.ofEpochSecond(date).atZone(ZoneId.of("UTC")).toLocalDate();
     }
 
     public Temperature getTemperature() {
@@ -44,8 +47,8 @@ public class WeatherData {
         this.temperature = temperature;
     }
 
-    public List<WeatherId> getWeatherId() {
-        return weatherId;
+    public int getWeatherId() {
+        return weatherId == null || weatherId.isEmpty() ? -1 : weatherId.get(0).getId();
     }
 
     public void setWeatherId(List<WeatherId> weatherId) {
@@ -83,5 +86,4 @@ public class WeatherData {
     public void setWindDeg(double windDeg) {
         this.windDeg = windDeg;
     }
-
 }

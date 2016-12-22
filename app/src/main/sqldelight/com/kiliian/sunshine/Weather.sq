@@ -20,3 +20,6 @@ FROM weather;
 insert_row:
 INSERT INTO weather(date, weather_id, min, max, humidity, pressure, wind, degrees)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+delete_old:
+DELETE FROM weather WHERE DATE(date) <= ?;
