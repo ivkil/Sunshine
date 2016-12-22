@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.kiliian.sunshine.mvp.models.WeatherData;
+import com.kiliian.sunshine.data.Weather;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,10 +19,10 @@ import butterknife.ButterKnife;
 
 public class ForecastSimpleAdapter extends RecyclerView.Adapter<ForecastSimpleAdapter.ForecastSimpleAdapterViewHolder> {
 
-    private List<WeatherData> weatherDataList;
+    private List<Weather> weatherList;
 
     public ForecastSimpleAdapter() {
-        weatherDataList = new ArrayList<>();
+        weatherList = new ArrayList<>();
     }
 
     @Override
@@ -35,17 +34,16 @@ public class ForecastSimpleAdapter extends RecyclerView.Adapter<ForecastSimpleAd
 
     @Override
     public void onBindViewHolder(ForecastSimpleAdapterViewHolder holder, int position) {
-        WeatherData weatherData = weatherDataList.get(position);
-        String dateStr = new Date(weatherData.getDate() * 1000L).toString();
+        Weather weather = weatherList.get(position);
         String weatherDataSrt = String.format(Locale.getDefault(), "%1$s - %2$s - %3$s",
-                dateStr, weatherData.getTemperature().getMax(), weatherData.getTemperature().getMin());
+                weather.date().toString(), weather.max(), weather.min());
         holder.textView.setText(weatherDataSrt);
     }
 
-    public void setData(List<WeatherData> newWeatherDataList) {
-        weatherDataList.clear();
-        if (newWeatherDataList != null) {
-            weatherDataList.addAll(newWeatherDataList);
+    public void setData(List<Weather> newWeatherList) {
+        weatherList.clear();
+        if (newWeatherList != null) {
+            weatherList.addAll(newWeatherList);
             notifyDataSetChanged();
         }
 
@@ -53,7 +51,7 @@ public class ForecastSimpleAdapter extends RecyclerView.Adapter<ForecastSimpleAd
 
     @Override
     public int getItemCount() {
-        return null == weatherDataList ? 0 : weatherDataList.size();
+        return null == weatherList ? 0 : weatherList.size();
     }
 
     class ForecastSimpleAdapterViewHolder extends RecyclerView.ViewHolder {

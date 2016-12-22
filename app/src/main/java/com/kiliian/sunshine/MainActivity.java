@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.kiliian.sunshine.mvp.models.WeatherData;
+import com.kiliian.sunshine.data.Weather;
 import com.kiliian.sunshine.mvp.presenters.ForecastPresenter;
 import com.kiliian.sunshine.mvp.views.ForecastView;
 
@@ -37,7 +37,7 @@ public class MainActivity extends MvpAppCompatActivity implements ForecastView {
     }
 
     @Override
-    public void showForecast(List<WeatherData> weatherDataList) {
-        adapter.setData(weatherDataList);
+    public void showForecast(List<Weather> weatherList) {
+        adapter.setData(weatherList);
     }
 }

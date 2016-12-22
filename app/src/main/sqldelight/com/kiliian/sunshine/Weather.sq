@@ -1,0 +1,22 @@
+import org.threeten.bp.LocalDate;
+
+CREATE TABLE weather (
+    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    date TEXT AS LocalDate NOT NULL,
+    weather_id INTEGER NOT NULL,
+    min REAL NOT NULL,
+    max REAL NOT NULL,
+    humidity REAL NOT NULL,
+    pressure REAL NOT NULL,
+    wind REAL NOT NULL,
+    degrees REAL NOT NULL,
+    UNIQUE (date) ON CONFLICT REPLACE
+);
+
+select_all:
+SELECT *
+FROM weather;
+
+insert_row:
+INSERT INTO weather(date, weather_id, min, max, humidity, pressure, wind, degrees)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
