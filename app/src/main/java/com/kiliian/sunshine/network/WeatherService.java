@@ -8,6 +8,6 @@ import rx.Observable;
 
 public interface WeatherService {
 
-    @GET("/data/2.5/forecast/daily?cnt=14")
+    @GET("/data/2.5/forecast/daily?units=metric&cnt=14")
     Observable<WeatherResponse> getWeatherForecast(@Query("lat") double lat, @Query("lon") double lng);
 }

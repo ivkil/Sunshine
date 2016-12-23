@@ -23,16 +23,19 @@ public class MainActivity extends MvpAppCompatActivity implements ForecastView {
     @BindView(R.id.recycler_view_forecast)
     RecyclerView recyclerView;
 
-    private ForecastSimpleAdapter adapter;
+    private ForecastAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setElevation(0f);
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        adapter = new ForecastSimpleAdapter();
+        adapter = new ForecastAdapter(this);
         recyclerView.setAdapter(adapter);
     }
 
