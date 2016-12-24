@@ -17,6 +17,9 @@ select_all:
 SELECT *
 FROM weather;
 
+select_weather:
+SELECT * FROM weather WHERE date = ?;
+
 insert_row:
 INSERT INTO weather(date, weather_id, min, max, humidity, pressure, wind, degrees)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?);

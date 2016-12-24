@@ -1,5 +1,6 @@
 package com.kiliian.sunshine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends MvpAppCompatActivity implements ForecastView {
+public class MainActivity extends MvpAppCompatActivity implements ForecastView, ForecastAdapter.ForecastAdapterOnClickHandler {
 
     @InjectPresenter
     ForecastPresenter forecastPresenter;
@@ -35,12 +36,19 @@ public class MainActivity extends MvpAppCompatActivity implements ForecastView {
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        adapter = new ForecastAdapter(this);
+        adapter = new ForecastAdapter(this, this);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void showForecast(List<Weather> weatherList) {
         adapter.setData(weatherList);
+    }
+
+    @Override
+    public void onClick(String dateStr) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.ARG_DATE, dateStr);
+        startActivity(intent);
     }
 }

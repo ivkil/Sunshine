@@ -1,6 +1,7 @@
 package com.kiliian.sunshine;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +25,20 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
 
+    private final ForecastAdapterOnClickHandler clickHandler;
+
+    public interface ForecastAdapterOnClickHandler {
+        void onClick(String dateStr);
+    }
+
     private boolean useTodayLayout;
     private Context context;
 
     private List<Weather> weatherList;
 
-    public ForecastAdapter(Context context) {
+    public ForecastAdapter(@NonNull Context context, ForecastAdapterOnClickHandler clickHandler) {
         this.context = context;
+        this.clickHandler = clickHandler;
         weatherList = new ArrayList<>();
         useTodayLayout = context.getResources().getBoolean(R.bool.use_today_layout);
     }
@@ -123,7 +131,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         }
     }
 
-    class ForecastAdapterViewHolder extends RecyclerView.ViewHolder {
+    class ForecastAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.weather_icon)
         ImageView iconView;
@@ -143,6 +151,16 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         ForecastAdapterViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            String dateStr = weatherList.get(adapterPosition).date().toString();
+            if (clickHandler != null) {
+                clickHandler.onClick(dateStr);
+            }
         }
     }
 
