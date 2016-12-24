@@ -55,4 +55,6 @@ dependencies {
     compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
     compile 'com.firebase:firebase-jobdispatcher:0.5.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'de.devland.esperandro:esperandro-api:2.2.0'
+    annotationProcessor 'de.devland.esperandro:esperandro:2.2.0'
 }

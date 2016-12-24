@@ -5,6 +5,7 @@ import android.content.Context;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.kiliian.sunshine.data.WeatherDbHelper;
+import com.kiliian.sunshine.data.prefs.DefaultPrefs;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
@@ -12,6 +13,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import de.devland.esperandro.Esperandro;
 import rx.schedulers.Schedulers;
 
 @Module
@@ -51,5 +53,11 @@ public class AppModule {
 	@Singleton
 	static FirebaseJobDispatcher provideFirebaseJobDispatcher(GooglePlayDriver googlePlayDriver){
 		return new FirebaseJobDispatcher(googlePlayDriver);
+	}
+
+	@Provides
+	@Singleton
+	static DefaultPrefs providePrefs(Context context){
+		return Esperandro.getPreferences(DefaultPrefs.class, context);
 	}
 }
