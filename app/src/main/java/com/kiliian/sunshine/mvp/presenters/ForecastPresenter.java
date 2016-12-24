@@ -39,6 +39,7 @@ public class ForecastPresenter extends BasePresenter<ForecastView> {
                 .mapToList(Weather.MAPPER)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .filter(weatherList -> !weatherList.isEmpty())
                 .subscribe(weatherList -> getViewState().showForecast(weatherList),
                         Throwable::printStackTrace);
         unsubscribeOnDestroy(subscription);
