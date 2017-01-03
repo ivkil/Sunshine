@@ -7,9 +7,17 @@ import com.firebase.jobdispatcher.JobService;
 import java.io.IOException;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class RxUtils {
+
+    public static <T> Observable.Transformer<T, T> async2ui() {
+        return observable -> observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     public static <T> Observable.Transformer<T, T> scheduleIfConnectionProblems(FirebaseJobDispatcher dispatcher, Class<? extends JobService> serviceClass, String tag) {
         return observable -> observable
