@@ -12,6 +12,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.kiliian.sunshine.DetailActivity;
 import com.kiliian.sunshine.R;
 import com.kiliian.sunshine.WeatherModel;
@@ -19,6 +20,7 @@ import com.kiliian.sunshine.data.Weather;
 import com.kiliian.sunshine.data.prefs.DefaultPrefs;
 import com.kiliian.sunshine.mvp.models.WeatherData;
 import com.kiliian.sunshine.network.WeatherService;
+import com.kiliian.sunshine.utilities.RxUtils;
 import com.kiliian.sunshine.utilities.SunshineWeatherUtils;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqldelight.SqlDelightStatement;
@@ -41,18 +43,22 @@ public class SunshineSyncTask {
     private WeatherService weatherService;
     private BriteDatabase database;
     private DefaultPrefs defaultPrefs;
+    private FirebaseJobDispatcher dispatcher;
 
     @Inject
-    public SunshineSyncTask(Context context, WeatherService weatherService,
-                            BriteDatabase database, DefaultPrefs defaultPrefs) {
+    public SunshineSyncTask(Context context, WeatherService weatherService, BriteDatabase database,
+                            DefaultPrefs defaultPrefs, FirebaseJobDispatcher dispatcher) {
         this.context = context;
         this.weatherService = weatherService;
         this.database = database;
         this.defaultPrefs = defaultPrefs;
+        this.dispatcher = dispatcher;
     }
 
     synchronized void syncWeather() {
         weatherService.getWeatherForecast(50.4501, 30.5234)
+                .compose(RxUtils.scheduleIfConnectionProblems(dispatcher,
+                        SunshineFirebaseJobService.class, SunshineSyncUtils.SUNSHINE_SYNC_IMMEDIATELY_TAG))
                 .subscribeOn(Schedulers.io())
                 .flatMap(weatherResponse -> Observable.just(weatherResponse.getWeatherData()))
                 .filter(weatherData -> !weatherData.isEmpty())

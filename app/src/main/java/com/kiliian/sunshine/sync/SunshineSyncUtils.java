@@ -19,6 +19,7 @@ public class SunshineSyncUtils {
     private static final int SYNC_INTERVAL_SECONDS = (int) TimeUnit.HOURS.toSeconds(SYNC_INTERVAL_HOURS);
     private static final int SYNC_FLEXTIME_SECONDS = SYNC_INTERVAL_SECONDS / 3;
 
+    static final String SUNSHINE_SYNC_IMMEDIATELY_TAG = "sunshine-sync-immediately";
     private static final String SUNSHINE_SYNC_TAG = "sunshine-sync";
 
     private FirebaseJobDispatcher dispatcher;
