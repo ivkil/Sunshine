@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="app_name">Sunshine</string>
+    <string name="wind_label">Вітер</string>
+    <string name="tomorrow">завтра</string>
+    <string name="today">сьогодні</string>
+    <string name="title_activity_detail">Деталі</string>
+    <string name="pressure_label">Атм. тиск</string>
+    <string name="humidity_label">Вологість</string>
+    <string name="a11y_forecast">Прогноз: <xliff:g id="condition">%1$s</xliff:g></string>
+    <string name="a11y_forecast_icon">Іконка прогнозу: <xliff:g id="condition">%1$s</xliff:g></string>
+    <string name="a11y_high_temp">Висока: <xliff:g id="high">%1$s</xliff:g></string>
+    <string name="a11y_humidity">Вологість: <xliff:g id="humidity">%1$s</xliff:g></string>
+    <string name="a11y_low_temp">Низька: <xliff:g id="low">%1$s</xliff:g></string>
+    <string name="a11y_pressure">Барометричний тиск: <xliff:g id="pressure">%1$s</xliff:g></string>
+    <string name="a11y_wind">Швидкість та няпрям вітру: <xliff:g id="wind">%1$s</xliff:g></string>
+    <string name="condition_2xx">Шторм</string>
+    <string name="condition_3xx">Мряка</string>
+    <string name="condition_500">Легкий дощ</string>
+    <string name="condition_501">Невеликий дощ</string>
+    <string name="condition_502">Сильний дощ</string>
+    <string name="condition_503">Інтенсивний дощ</string>
+    <string name="condition_504">Злива</string>
+    <string name="condition_511">Крижана буря</string>
+    <string name="condition_520">Невеликі опади</string>
+    <string name="condition_521">Злива</string>
+    <string name="condition_522">Злива</string>
+    <string name="condition_531">Злива</string>
+    <string name="condition_600">Легкий сніг</string>
+    <string name="condition_601">Сніг</string>
+    <string name="condition_602">Сильний сніг</string>
+    <string name="condition_611">Мокрий сніг</string>
+    <string name="condition_612">Дощ зі снігом</string>
+    <string name="condition_615">Дощ зі снігом</string>
+    <string name="condition_616">Дощ зі снігом</string>
+    <string name="condition_620">Сильний снігопад</string>
+    <string name="condition_621">Сильний снігопад</string>
+    <string name="condition_622">Сильний снігопад</string>
+    <string name="condition_701">Туман</string>
+    <string name="condition_711">Дим</string>
+    <string name="condition_721">Серпанок</string>
+    <string name="condition_731">Пісок, пил</string>
+    <string name="condition_741">Імла</string>
+    <string name="condition_751">Пісок</string>
+    <string name="condition_761">Пил</string>
+    <string name="condition_762">Вулканічний попіл</string>
+    <string name="condition_771">Шквали</string>
+    <string name="condition_781">Смерч</string>
+    <string name="condition_801">Невелика хмарність</string>
+    <string name="condition_802">Місцями хмарно</string>
+    <string name="condition_803">Переважно хмарно</string>
+    <string name="condition_804">Хмарно</string>
+    <string name="condition_900">Смерч</string>
+    <string name="condition_901">Тропічний шторм</string>
+    <string name="condition_902">Ураган</string>
+    <string name="condition_903">Похолодання</string>
+    <string name="condition_904">Спекотно</string>
+    <string name="condition_905">Вітряно</string>
+    <string name="condition_906">Град</string>
+    <string name="condition_951">Штиль</string>
+    <string name="condition_952">Легкий вітер</string>
+    <string name="condition_953">Слабкий вітер</string>
+    <string name="condition_954">Помірний вітер</string>
+    <string name="condition_955">Свіжий вітер</string>
+    <string name="condition_956">Сильний вітер</string>
+    <string name="condition_957">Міцний вітер</string>
+    <string name="condition_958">Дуже міцний вітер</string>
+    <string name="condition_959">Шторм</string>
+    <string name="condition_960">Сильний шторм</string>
+    <string name="condition_961">Жорстокий шторм</string>
+    <string name="condition_962">Ураган</string>
+    <string name="condition_800">Ясно</string>
+</resources>
