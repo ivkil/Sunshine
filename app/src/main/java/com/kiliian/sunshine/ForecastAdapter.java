@@ -9,12 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kiliian.sunshine.app.SunshineApp;
 import com.kiliian.sunshine.data.Weather;
+import com.kiliian.sunshine.data.prefs.DefaultPrefs;
 import com.kiliian.sunshine.utilities.SunshineDateUtils;
 import com.kiliian.sunshine.utilities.SunshineWeatherUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +40,15 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
     private List<Weather> weatherList;
 
+    @Inject
+    DefaultPrefs defaultPrefs;
+
     public ForecastAdapter(@NonNull Context context, ForecastAdapterOnClickHandler clickHandler) {
         this.context = context;
         this.clickHandler = clickHandler;
         weatherList = new ArrayList<>();
         useTodayLayout = context.getResources().getBoolean(R.bool.use_today_layout);
+        SunshineApp.getAppComponent().inject(this);
     }
 
     @Override
@@ -86,8 +94,19 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         }
         holder.iconView.setImageResource(weatherImageId);
 
-        //Date
-        String dateStr = SunshineDateUtils.getFriendlyDateString(context, weather.date(), false);
+        //Locality and date
+        String dateStr;
+        switch (viewType) {
+            case VIEW_TYPE_TODAY:
+                dateStr = SunshineDateUtils.getFriendlyDateStringWithLocality(context, weather.date(),
+                        defaultPrefs.locality());
+                break;
+            case VIEW_TYPE_FUTURE_DAY:
+                dateStr = SunshineDateUtils.getFriendlyDateString(context, weather.date(), false);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid view type, value of " + viewType);
+        }
         holder.dateView.setText(dateStr);
 
         //Weather description
@@ -136,7 +155,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         @BindView(R.id.weather_icon)
         ImageView iconView;
 
-        @BindView(R.id.date)
+        @BindView(R.id.locality_and_date)
         TextView dateView;
 
         @BindView(R.id.weather_description)

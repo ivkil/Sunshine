@@ -41,6 +41,13 @@ public class SunshineDateUtils {
         }
     }
 
+    public static String getFriendlyDateStringWithLocality(Context context, LocalDate date, String locality) {
+        if (locality.isEmpty()) {
+            locality = context.getString(R.string.default_locality);
+        }
+        return locality + " / " + getFriendlyDateString(context, date, false);
+    }
+
     private static String getReadableDateString(Context context, LocalDate date, String format) {
         Locale locale = getLocale(context);
         String pattern = DateFormat.getBestDateTimePattern(locale, format);
@@ -58,7 +65,7 @@ public class SunshineDateUtils {
         return date.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, getLocale(context));
     }
 
-    private static Locale getLocale(Context context) {
+    public static Locale getLocale(Context context) {
         final Set<String> AVAILABLE_TRANSLATIONS = new HashSet<>(Arrays.asList(
                 new String[]{"uk"}
         ));

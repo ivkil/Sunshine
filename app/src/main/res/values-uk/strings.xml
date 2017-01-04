@@ -70,4 +70,6 @@
     <string name="condition_961">Жорстокий шторм</string>
     <string name="condition_962">Ураган</string>
     <string name="condition_800">Ясно</string>
+    <string name="default_locality">Маунтін-В\'ю</string>
+    <string name="unknown_locality">Невідома адреса</string>
 </resources>

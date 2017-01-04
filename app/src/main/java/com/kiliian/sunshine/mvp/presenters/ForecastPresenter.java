@@ -29,7 +29,6 @@ public class ForecastPresenter extends BasePresenter<ForecastView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        syncUtils.initialize();
         loadWeather();
     }
 
@@ -41,5 +40,9 @@ public class ForecastPresenter extends BasePresenter<ForecastView> {
                 .subscribe(weatherList -> getViewState().showForecast(weatherList),
                         Throwable::printStackTrace);
         unsubscribeOnDestroy(subscription);
+    }
+
+    public void allowSyncWeather() {
+        syncUtils.syncImmediately();
     }
 }

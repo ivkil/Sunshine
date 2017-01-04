@@ -1,6 +1,9 @@
 package com.kiliian.sunshine.sync;
 
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.Job;
@@ -22,22 +25,25 @@ public class SunshineSyncUtils {
     static final String SUNSHINE_SYNC_IMMEDIATELY_TAG = "sunshine-sync-immediately";
     private static final String SUNSHINE_SYNC_TAG = "sunshine-sync";
 
+    private Context context;
     private FirebaseJobDispatcher dispatcher;
-    private SunshineSyncTask syncTask;
 
     private boolean initialized;
 
     @Inject
-    public SunshineSyncUtils(FirebaseJobDispatcher dispatcher, SunshineSyncTask syncTask) {
+    public SunshineSyncUtils(Context context, FirebaseJobDispatcher dispatcher) {
+        this.context = context;
         this.dispatcher = dispatcher;
-        this.syncTask = syncTask;
     }
 
-    synchronized public void initialize() {
-        if (initialized) return;
-        initialized = true;
-        syncTask.syncWeather();
-        scheduleFirebaseJobDispatcherSync();
+    synchronized public void syncImmediately() {
+        Intent intent = new Intent(context, SunshineSyncService.class);
+        context.startService(intent);
+        if (!initialized) {
+            scheduleFirebaseJobDispatcherSync();
+            initialized = true;
+        }
+
     }
 
     private void scheduleFirebaseJobDispatcherSync() {

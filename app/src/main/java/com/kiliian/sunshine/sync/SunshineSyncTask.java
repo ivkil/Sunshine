@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -56,16 +57,19 @@ public class SunshineSyncTask {
     }
 
     synchronized void syncWeather() {
-        weatherService.getWeatherForecast(50.4501, 30.5234)
+        Intent intent = new Intent(SunshineFirebaseJobService.JOB_FINISHED_ACTION);
+        double lat = Double.longBitsToDouble(defaultPrefs.latitudeRowBits());
+        double lng = Double.longBitsToDouble(defaultPrefs.longitudeRowBits());
+        weatherService.getWeatherForecast(lat, lng)
                 .compose(RxUtils.scheduleIfConnectionProblems(dispatcher,
                         SunshineFirebaseJobService.class, SunshineSyncUtils.SUNSHINE_SYNC_IMMEDIATELY_TAG))
+                .doOnUnsubscribe(() -> LocalBroadcastManager.getInstance(context).sendBroadcast(intent))
                 .subscribeOn(Schedulers.io())
                 .flatMap(weatherResponse -> Observable.just(weatherResponse.getWeatherData()))
                 .filter(weatherData -> !weatherData.isEmpty())
                 .flatMap(Observable::from)
                 .doOnNext(this::insertForecast)
                 .toList()
-                .toBlocking()
                 .subscribe(__ -> deleteOldForecast(), Throwable::printStackTrace);
 
         long timeSinceLastNotification = System.currentTimeMillis() - defaultPrefs.lastNotificationTime();

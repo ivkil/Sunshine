@@ -107,4 +107,7 @@
         Low:<xliff:g id="low">%3$s</xliff:g>
     </string>
 
+    <string name="default_locality">Mountain View</string>
+    <string name="unknown_locality">Unknown Locality</string>
+
 </resources>
