@@ -3,6 +3,14 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.squareup.sqldelight'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'Sunshine'
+            keyPassword 'ZGtA863G133!'
+            storeFile file('/Users/ivan/Documents/kiliiancom.jks')
+            storePassword 'D^^31ZI3Nq07'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -15,8 +23,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     buildTypes.each {
